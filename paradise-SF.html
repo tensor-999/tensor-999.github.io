@@ -1,11 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[2인]Archive-SF</title>
-    준비중
+    <link rel="stylesheet" href="style2.css">
 </head>
 <body>
+<h1>낙원존재론:SF</h1>
+<h3>역극을 백업할 두 명의 캐릭터를 선택하세요</h3>
+<p>현재 상태 : 파일 수집 대기(작동X)</p>
+<p>업로드를 누르고 약간 기다리시면 완료 팝업이 뜹니다.</p>
 
+<div id="characterList">
+    <!-- 체크박스 자동 생성 -->
+</div>
+
+<input type="text" id="sheetName" placeholder="내보낼 파일명을 입력하세요">
+
+<div class="button-group">
+    <button id="authBtn">Google 로그인</button>
+    <button id="uploadBtn" disabled>Google Sheets에 업로드</button>
+    <a href="./index.html" class="back-link">돌아가기</a>
+</div>
+
+<script src="https://apis.google.com/js/api.js"></script>
+<script src="https://accounts.google.com/gsi/client"></script>
+<script src="./js/paradise_SF.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        let password = "";
+        try {
+            const res = await fetch("./config.json");
+            const config = await res.json();
+            password = config.PASSWORD;
+        } catch (e) {
+            console.error("config.json 읽기 실패", e);
+            return;
+        }
+
+        if (!sessionStorage.getItem("authenticated")) {
+            const userInput = prompt("비밀번호를 입력하세요:");
+            if (userInput === password) {
+                sessionStorage.setItem("authenticated", "true");
+            } else {
+                alert("비밀번호가 틀렸습니다!");
+                window.location.href = "./index.html";
+            }
+        }
+    });
+</script>
 </body>
 </html>
