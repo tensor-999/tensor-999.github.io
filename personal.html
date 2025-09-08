@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>개인 역극백업</title>
 </head>
 <body>
+<h1>개인 역극백업</h1>
 
+<input type="file" id="fileInput" accept=".json">
+<br><br>
+<input type="text" id="sheetName" placeholder="시트 이름 입력">
+<br><br>
+<button id="authBtn">Google 로그인</button>
+<button id="uploadBtn" disabled>Google Sheets에 업로드</button>
+
+<script src="https://apis.google.com/js/api.js"></script>
+<script src="https://accounts.google.com/gsi/client"></script>
+<script src="./js/main.js"></script>
 </body>
 </html>
