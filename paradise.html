@@ -38,7 +38,6 @@
       return;
     }
 
-    // index.html에서 비밀번호 통과 여부 저장 (sessionStorage)
     if (!sessionStorage.getItem("authenticated")) {
       const userInput = prompt("비밀번호를 입력하세요:");
       if (userInput === password) {
