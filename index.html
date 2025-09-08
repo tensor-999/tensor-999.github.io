@@ -31,6 +31,15 @@
 			return;
 		}
 
+		if (window.location.pathname.includes("paradise")) {
+			const userInput = prompt("비밀번호를 입력하세요: ");
+			if (userInput !== password) {
+				alert("비밀번호가 틀렸습니다!");
+				window.location.href = "./index.html";
+				return;
+			}
+		}
+
 		// 낙원존재론 링크 선택
 		const protectedLinks = document.querySelectorAll('a[href^="./paradise"]');
 
