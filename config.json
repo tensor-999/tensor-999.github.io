@@ -1,5 +1,23 @@
 {
   "CLIENT_ID": "927829633052-da399enjcke7f7mreai6f19mgs5r9eu5.apps.googleusercontent.com",
   "API_KEY": "AIzaSyAcjpck2SHEd64KMPANHx2lSqj1obTUTZ0",
-  "PASSWORD" : "아우욿"
+  "PASSWORD" : "아우욿",
+  "driveFiles": {
+    "arthur.json": "1CGX6DRbPkVfBxj2MnVgy-4Gvv5tuu3Pz",
+    "charlotte.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa",
+    "wiz.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa",
+    "dylan.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa",
+    "ricky.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa",
+    "winter.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa",
+    "j.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa",
+    "lu.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa",
+    "elgar.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa",
+    "hollow.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa",
+    "dorothy.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa",
+    "cale.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa",
+    "melissa.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa",
+    "kuiper.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa",
+    "tauleon.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa",
+    "yosef.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa"
+  }
 }

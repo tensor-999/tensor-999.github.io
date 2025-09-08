@@ -1,54 +1,40 @@
-let CLIENT_ID;
-let API_KEY;
+let CLIENT_ID, API_KEY;
 const SCOPES = "https://www.googleapis.com/auth/spreadsheets";
 
-let tokenClient;
-let gapiInited = false;
-let gisInited = false;
+let tokenClient, gapiInited = false, gisInited = false;
+let accessToken = null;
 
 // 캐릭터 정보
 const characters = {
-    "아서": { id: "Arthur_s", path: "/json/origin/arthur.json" },
-    "샬럿": { id: "zZzzZzz", path: "/json/origin/charlotte.json" },
-    "위스테라이": { id: "Nightmare", path: "/json/origin/wiz.json" },
-    "딜런": { id: "DylanRossini", path: "/json/origin/dylan.json" },
-    "리키": { id: "RICKYBANG", path: "/json/origin/ricky.json" },
-    "윈터": { id: "Winter", path: "/json/origin/winter.json" },
-    "제이어드": { id: "DD_Jayard", path: "/json/origin/j.json" },
-    "루": { id: "LuBu3", path: "/json/origin/lu.json" },
-    "엘가": { id: "Elgar", path: "/json/origin/elgar.json" },
-    "할로우": { id: "H0110W", path: "/json/origin/hollow.json" },
-    "도로테아": { id: "Dorothy_Witch", path: "/json/origin/dorothy.json" },
-    "케일럽": { id: "Y0UNGBL00D", path: "/json/origin/cale.json" },
-    "멜리사": { id: "Melissa", path: "/json/origin/melissa.json" },
-    "카이퍼": { id: "Ebony", path: "/json/origin/kuiper.json" },
-    "타우리온": { id: "TauLeo", path: "/json/origin/tauleon.json" },
-    "요세프": { id: "Y0S3F", path: "/json/origin/yosef.json" },
+    "아서": { id: "Arthur_s", fileName: "arthur.json" },
+    "샬럿": { id: "zZzzZzz", fileName: "charlotte.json" },
+    "위스테라이": { id: "Nightmare", fileName: "wiz.json" },
+    "딜런": { id: "DylanRossini", fileName: "dylan.json" },
+    "리키": { id: "RICKYBANG", fileName: "ricky.json" },
+    "윈터": { id: "Winter", fileName: "winter.json" },
+    "제이어드": { id: "DD_Jayard", fileName: "j.json" },
+    "루": { id: "LuBu3", fileName: "lu.json" },
+    "엘가": { id: "Elgar", fileName: "elgar.json" },
+    "할로우": { id: "H0110W", fileName: "hollow.json" },
+    "도로테아": { id: "Dorothy_Witch", fileName: "dorothy.json" },
+    "케일럽": { id: "Y0UNGBL00D", fileName: "cale.json" },
+    "멜리사": { id: "Melissa", fileName: "melissa.json" },
+    "카이퍼": { id: "Ebony", fileName: "kuiper.json" },
+    "타우리온": { id: "TauLeo", fileName: "tauleon.json" },
+    "요세프": { id: "Y0S3F", fileName: "yosef.json" },
 };
 
 // id → 한글 이름 매핑
 const idToName = {};
-Object.entries(characters).forEach(([name, obj]) => {
-    idToName[obj.id] = name;
-});
+Object.entries(characters).forEach(([name, obj]) => idToName[obj.id] = name);
 
-// HTML 태그 제거 및 @멘션 분리
+// JSON에서 HTML 제거 및 @멘션 분리
 function cleanText(htmlString) {
     if (!htmlString) return { target: "", content: "" };
-
     const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlString, 'text/html');
-    const text = doc.body.textContent || "";
-
-    let target = "";
-    let content = text;
+    const text = parser.parseFromString(htmlString, "text/html").body.textContent || "";
     const match = text.match(/^(@\S+)\s*(.*)/);
-    if (match) {
-        target = match[1];  // @abc
-        content = match[2]; // hi
-    }
-
-    return { target, content };
+    return match ? { target: match[1], content: match[2] } : { target: "", content: text };
 }
 
 // DM 체크
@@ -63,30 +49,61 @@ function isDM(noteObj) {
     return toList.some(t => dmTargets.includes(t));
 }
 
-// JSON 로드
+async function fetchJsonFromDrive(fileName) {
+    const fileId = driveFiles[fileName];
+    if (!fileId) throw new Error(`${fileName}에 대한 Drive 파일 ID가 config에 없습니다.`);
+    if (!accessToken) throw new Error("OAuth2 로그인 후 사용 가능합니다.");
+
+    const res = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {
+        headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    if (!res.ok) throw new Error(`${fileName} 다운로드 실패: ${res.status}`);
+    return await res.json();
+}
+
+// 선택된 캐릭터 JSON 로드
 async function loadSelectedJsonFiles(selectedNames) {
     const allMessages = [];
     for (let name of selectedNames) {
         const char = characters[name];
         if (!char) continue;
         try {
-            const res = await fetch(char.path);
-            if (!res.ok) continue;
-            const data = await res.json();
+            const data = await fetchJsonFromDrive(char.fileName);
             (data.orderedItems || []).forEach(item => {
                 if (item.object && item.object.type === "Note" && !isDM(item.object)) {
                     allMessages.push(item.object);
                 }
             });
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            console.error("Drive에서 JSON 불러오기 실패:", e);
+        }
+    }
+    return allMessages;
+}
+
+// 선택된 캐릭터 JSON 로드
+async function loadSelectedJsonFiles(selectedNames) {
+    const allMessages = [];
+    for (let name of selectedNames) {
+        const char = characters[name];
+        if (!char) continue;
+        try {
+            const data = await fetchJsonFromDrive(char.fileName);
+            (data.orderedItems || []).forEach(item => {
+                if (item.object && item.object.type === "Note" && !isDM(item.object)) {
+                    allMessages.push(item.object);
+                }
+            });
+        } catch (e) {
+            console.error("JSON 불러오기 실패:", e);
+        }
     }
     return allMessages;
 }
 
 // 스레드 수집
 function collectThreads(messages) {
-    const idMap = {};
-    const repliesTo = {};
+    const idMap = {}, repliesTo = {};
     messages.forEach(msg => {
         idMap[msg.id] = msg;
         if (msg.inReplyTo) {
@@ -101,28 +118,21 @@ function collectThreads(messages) {
         const msg = idMap[id];
         if (!msg) return [];
         let thread = [msg];
-        (repliesTo[id] || []).forEach(reply => {
-            thread = thread.concat(dfs(reply.id, visited));
-        });
+        (repliesTo[id] || []).forEach(reply => thread = thread.concat(dfs(reply.id, visited)));
         return thread;
     }
 
-    const rootIds = messages.filter(m => !m.inReplyTo).map(m => m.id);
-    const threads = [];
-    rootIds.forEach(rootId => {
-        const thread = dfs(rootId);
-        if (thread.length > 1) threads.push(thread);
-    });
-    return threads;
+    return messages.filter(m => !m.inReplyTo).map(m => dfs(m.id)).filter(t => t.length > 1);
 }
 
-// Google API 초기화
+// Google Sheets 초기화
 async function initApp() {
     try {
         const res = await fetch("./config.json");
         const config = await res.json();
         CLIENT_ID = config.CLIENT_ID;
         API_KEY = config.API_KEY;
+        driveFiles = config.driveFiles;
 
         await new Promise(resolve => {
             gapi.load('client', async () => {
@@ -139,6 +149,7 @@ async function initApp() {
             client_id: CLIENT_ID,
             scope: SCOPES,
             callback: (tokenResponse) => {
+                accessToken = tokenResponse.access_token; // 여기에 할당
                 console.log("로그인 완료", tokenResponse);
                 document.getElementById("uploadBtn").disabled = false;
             }
@@ -155,7 +166,6 @@ function generateCharacterCheckboxes() {
     const container = document.getElementById("characterList");
     Object.keys(characters).forEach(name => {
         const label = document.createElement("label");
-        label.style.marginRight = "10px";
         const input = document.createElement("input");
         input.type = "checkbox";
         input.value = name;
@@ -165,23 +175,18 @@ function generateCharacterCheckboxes() {
     });
 }
 
-// 한국 시간 변환
+// UTC → KST
 function toKST(utc) {
-    const d = new Date(utc);
-    const kst = new Date(d.getTime() + 9*60*60*1000);
-    return kst.toISOString().replace("T", " ").substring(0, 19);
+    return new Date(new Date(utc).getTime() + 9*60*60*1000)
+        .toISOString().replace("T", " ").substring(0,19);
 }
 
-// 로그인 버튼
+// 버튼 이벤트
 document.getElementById("authBtn").addEventListener("click", () => {
-    if (!gapiInited || !gisInited) {
-        alert("Google API 초기화가 아직 안 됐습니다.");
-        return;
-    }
+    if (!gapiInited || !gisInited) return alert("Google API 초기화가 안 됐습니다.");
     tokenClient.requestAccessToken({ prompt: 'consent' });
 });
 
-// 업로드 버튼
 document.getElementById("uploadBtn").addEventListener("click", async () => {
     const selected = Array.from(document.querySelectorAll("#characterList input:checked")).map(i => i.value);
     if (!selected.length) return alert("캐릭터를 선택하세요!");
@@ -190,37 +195,22 @@ document.getElementById("uploadBtn").addEventListener("click", async () => {
     const allMessages = await loadSelectedJsonFiles(selected);
     const threads = collectThreads(allMessages);
 
-    const records = [["날짜","카테고리","작성자","내용"]]; // 대상 열 제거
+    const records = [["날짜","카테고리","작성자","내용"]];
     let category = 1;
     threads.forEach(thread => {
         thread.sort((a,b) => new Date(a.published)-new Date(b.published)).forEach(msg => {
             const textObj = cleanText(msg.contentMap?.ko || msg.content || "");
-            records.push([
-                toKST(msg.published),
-                category,
-                idToName[msg.attributedTo?.split("/").pop()] || msg.attributedTo?.split("/").pop(),
-                textObj.content
-            ]);
+            records.push([toKST(msg.published), category, idToName[msg.attributedTo?.split("/").pop()] || msg.attributedTo?.split("/").pop(), textObj.content]);
         });
         category++;
     });
 
-    const response = await gapi.client.sheets.spreadsheets.create({
-        properties: { title: sheetName }
-    });
+    const response = await gapi.client.sheets.spreadsheets.create({ properties: { title: sheetName } });
     const spreadsheetId = response.result.spreadsheetId;
+    await gapi.client.sheets.spreadsheets.values.update({ spreadsheetId, range: "A1", valueInputOption: "RAW", resource: { values: records } });
 
-    await gapi.client.sheets.spreadsheets.values.update({
-        spreadsheetId,
-        range: "A1",
-        valueInputOption: "RAW",
-        resource: { values: records }
-    });
-
-    const url = "https://docs.google.com/spreadsheets/d/" + spreadsheetId;
-    navigator.clipboard.writeText(url).then(() => {
-        alert("시트 생성 완료! 링크가 클립보드에 복사되었습니다.");
-    });
+    navigator.clipboard.writeText(`https://docs.google.com/spreadsheets/d/${spreadsheetId}`);
+    alert("시트 생성 완료! 링크가 클립보드에 복사되었습니다.");
 });
 
 // 초기화
