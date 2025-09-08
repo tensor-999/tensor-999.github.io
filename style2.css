@@ -108,6 +108,36 @@ button:disabled {
     transform: scale(1.05);
 }
 
+.submit-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 20px;
+}
+
+.submit-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #a58cff;        /* 연보라 버튼 */
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform .15s ease, background .15s ease;
+    box-shadow: 0 2px 6px rgba(60,47,92,0.1);
+}
+
+.submit-btn:hover {
+    background: #8e70f0;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+    .submit-btn {
+        width: 90%;
+        text-align: center;
+    }
+}
+
 /* 반응형 - 모바일 */
 @media (max-width: 768px) {
     #characterList label {
