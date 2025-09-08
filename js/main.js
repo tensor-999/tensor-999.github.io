@@ -119,5 +119,8 @@ document.getElementById("uploadBtn").addEventListener("click", async () => {
         resource: { values: records }
     });
 
-    alert("시트 생성 완료!\n링크: https://docs.google.com/spreadsheets/d/" + spreadsheetId);
+    const url = "https://docs.google.com/spreadsheets/d/" + spreadsheetId;
+    navigator.clipboard.writeText(url).then(() => {
+        alert("시트 생성 완료! 링크가 클립보드에 복사되었습니다.");
+    });
 });
