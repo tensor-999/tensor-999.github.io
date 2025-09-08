@@ -1,5 +1,6 @@
 let CLIENT_ID, API_KEY;
-const SCOPES = "https://www.googleapis.com/auth/spreadsheets";
+// Google Sheets + Google Drive Readonly 권한 모두 요청
+const SCOPES = "https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.readonly";
 
 let tokenClient, gapiInited = false, gisInited = false;
 let accessToken = null;
