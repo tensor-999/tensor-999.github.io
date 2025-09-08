@@ -2,17 +2,25 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>개인 역극백업</title>
+    <title>Archive</title>
+    <link rel="stylesheet" href="personal.css" />
 </head>
 <body>
-<h1>개인 역극백업</h1>
+<h1>개인 역극 백업</h1>
+<p class="notice">아카이브 요청으로 받은 파일을 구글 스프레드시트 형태로 내보낼 수 있습니다.</p>
+<p class="notice">구글 권한 요청이 필수이니 창이 표시되지 않는다면 팝업 허용을 확인해주세요!</p>
+<h3 >본인의 역극 내용이 담긴 .json 형식 파일을 업로드해주세요</h3>
+<h3 class="notice">기본 파일명 : outbox.json </h3>
+<div class="input-group">
+    <input type="file" id="fileInput" accept=".json">
+    <input type="text" id="sheetName" placeholder="내보낼 파일명 입력">
+</div>
 
-<input type="file" id="fileInput" accept=".json">
-<br><br>
-<input type="text" id="sheetName" placeholder="시트 이름 입력">
-<br><br>
-<button id="authBtn">Google 로그인</button>
-<button id="uploadBtn" disabled>Google Sheets에 업로드</button>
+<div class="button-group">
+    <button id="authBtn">Google 로그인</button>
+    <button id="uploadBtn" disabled>Google Sheets에 업로드</button>
+    <a href="./index.html" class="back-link">돌아가기</a>
+</div>
 
 <script src="https://apis.google.com/js/api.js"></script>
 <script src="https://accounts.google.com/gsi/client"></script>

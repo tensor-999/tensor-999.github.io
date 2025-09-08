@@ -1,0 +1,105 @@
+/* 전체 페이지 스타일 */
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #f3f0ff; /* 연보라빛 배경 */
+    color: #3c2f5c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+.notice {
+    margin-top: 5px;    /* 위쪽 여백 */
+    margin-bottom: 5px; /* 아래쪽 여백 */
+}
+/* 입력 그룹 */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+input[type="text"], input[type="file"] {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #b8a9f0;
+    width: 300px;
+    max-width: 90%;
+    font-size: 1em;
+}
+
+/* 버튼 그룹 */
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #a58cff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.2s, transform 0.2s;
+}
+
+button:hover {
+    background: #8e70f0;
+    transform: scale(1.05);
+}
+
+button:disabled {
+    background: #d0c7f7;
+    cursor: not-allowed;
+}
+
+/* 돌아가기 링크 */
+.back-link {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #3c2f5c;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.back-link:hover {
+    background: #d4c3ff;
+    transform: scale(1.05);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    input[type="text"], input[type="file"] {
+        width: 90%;
+    }
+
+    button, .back-link {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    button, .back-link {
+        width: 90%;
+    }
+}

@@ -1,0 +1,131 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #f3f0ff; /* 연보라빛 배경 */
+    color: #3c2f5c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+h3 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #b8a9f0;
+    width: 300px;
+    max-width: 80%;
+    margin-bottom: 15px;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #a58cff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+button:hover {
+    background: #8e70f0;
+    transform: scale(1.05);
+}
+
+button:disabled {
+    background: #d0c7f7;
+    cursor: not-allowed;
+}
+
+.back-link {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #3c2f5c;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.back-link:hover {
+    background: #d4c3ff;
+    transform: scale(1.05);
+}
+
+
+#characterList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin: 0 auto 20px auto; /* 상단 0, 좌우 중앙, 하단 20px */
+    width: 50%; /* 화면의 절반 */
+    min-width: 250px; /* 너무 작아지지 않게 최소 너비 */
+}
+/* 개별 체크박스 레이블 */
+#characterList label {
+    background-color: #e5dbff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s, transform 0.2s;
+    flex: 1 1 18%; /* 한 줄에 최대 5개 */
+    max-width: 150px;
+    text-align: center;
+}
+
+#characterList input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+#characterList label:hover {
+    background-color: #d4c3ff;
+    transform: scale(1.05);
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+    #characterList label {
+        flex: 1 1 30%; /* 한 줄에 3개 */
+        max-width: none;
+    }
+
+    input[type="text"] {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    #characterList label {
+        flex: 1 1 45%; /* 한 줄에 2개 */
+    }
+
+    button, .back-link {
+        width: 90%;
+    }
+}

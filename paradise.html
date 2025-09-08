@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[2인]Archive</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+<h1>낙원존재론</h1>
+<h3>역극을 백업할 두 명의 캐릭터를 선택하세요</h3>
+
+<div id="characterList">
+  <!-- 체크박스 자동 생성 -->
+</div>
+
+<input type="text" id="sheetName" placeholder="내보낼 파일명을 입력하세요">
+
+<div class="button-group">
+  <button id="authBtn">Google 로그인</button>
+  <button id="uploadBtn" disabled>Google Sheets에 업로드</button>
+  <a href="./index.html" class="back-link">돌아가기</a>
+</div>
+
+<script src="https://apis.google.com/js/api.js"></script>
+<script src="https://accounts.google.com/gsi/client"></script>
+<script src="./js/paradise.js"></script>
+</body>
+</html>

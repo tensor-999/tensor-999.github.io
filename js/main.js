@@ -119,5 +119,5 @@ document.getElementById("uploadBtn").addEventListener("click", async () => {
         resource: { values: records }
     });
 
-    alert("시트 생성 완료! 링크: https://docs.google.com/spreadsheets/d/" + spreadsheetId);
+    alert("시트 생성 완료!\n링크: https://docs.google.com/spreadsheets/d/" + spreadsheetId);
 });
