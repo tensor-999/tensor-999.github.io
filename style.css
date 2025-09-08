@@ -1,0 +1,29 @@
+body {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 세로 중앙 */
+    align-items: center;    /* 가로 중앙 */
+    text-align: center;
+}
+
+h1 { margin-bottom: 16px; }
+
+ul { list-style: none; padding: 0; }
+
+li { margin: 12px 0; }
+
+a {
+    text-decoration: none;
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: inline-block;
+    transition: background 0.2s;
+    min-width: 250px;   /* 버튼 최소 길이 지정 */
+    text-align: center; /* 글자를 가운데 정렬 */
+}
+
+a:hover { background: #f6f6f6; }
