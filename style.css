@@ -1,7 +1,7 @@
 body {
     font-family: 'Noto Sans KR', sans-serif;
-    background: #f3f0ff; /* 연보라 배경 */
-    color: #3c2f5c;      /* 진한 보라색 글자 */
+    background: #f3f0ff;
+    color: #3c2f5c;
     display: flex;
     flex-direction: column;
     align-items: center;

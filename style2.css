@@ -1,6 +1,6 @@
 body {
     font-family: 'Noto Sans KR', sans-serif;
-    background: #f3f0ff; /* 연보라빛 배경 */
+    background: #f3f0ff;
     color: #3c2f5c;
     display: flex;
     flex-direction: column;
@@ -20,6 +20,11 @@ h1 {
 h3 {
     margin-top: 20px;
     margin-bottom: 15px;
+}
+
+.notice {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 input[type="text"] {
@@ -68,7 +73,10 @@ button:disabled {
     color: #3c2f5c;
     text-decoration: none;
     font-weight: bold;
+    font-size: 1em;
+    text-align: center;
     transition: background 0.2s, transform 0.2s;
+    box-sizing: border-box;
 }
 
 .back-link:hover {
@@ -82,11 +90,11 @@ button:disabled {
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
-    margin: 0 auto 20px auto; /* 상단 0, 좌우 중앙, 하단 20px */
-    width: 50%; /* 화면의 절반 */
-    min-width: 250px; /* 너무 작아지지 않게 최소 너비 */
+    margin: 0 auto 20px auto;
+    width: 50%;
+    min-width: 250px;
 }
-/* 개별 체크박스 레이블 */
+
 #characterList label {
     background-color: #e5dbff;
     padding: 8px 12px;
@@ -94,7 +102,7 @@ button:disabled {
     cursor: pointer;
     user-select: none;
     transition: background 0.2s, transform 0.2s;
-    flex: 1 1 18%; /* 한 줄에 최대 5개 */
+    flex: 1 1 18%;
     max-width: 150px;
     text-align: center;
 }
@@ -108,6 +116,21 @@ button:disabled {
     transform: scale(1.05);
 }
 
+#characterList input[type="checkbox"]:disabled + span,
+#characterList label:has(input[type="checkbox"]:disabled) {
+    background-color: #f1f3f5;
+    color: #999;
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none;
+}
+
+
+#characterList label:has(input[type="checkbox"]:disabled):hover {
+    background-color: #e0e0e0;
+    transform: none;
+}
+
 .submit-wrap {
     display: flex;
     justify-content: center;
@@ -118,7 +141,7 @@ button:disabled {
     display: inline-block;
     padding: 10px 20px;
     border-radius: 8px;
-    background: #a58cff;        /* 연보라 버튼 */
+    background: #a58cff;
     color: #fff;
     text-decoration: none;
     font-weight: bold;
@@ -138,10 +161,10 @@ button:disabled {
     }
 }
 
-/* 반응형 - 모바일 */
+
 @media (max-width: 768px) {
     #characterList label {
-        flex: 1 1 30%; /* 한 줄에 3개 */
+        flex: 1 1 30%;
         max-width: none;
     }
 
@@ -152,7 +175,7 @@ button:disabled {
 
 @media (max-width: 480px) {
     #characterList label {
-        flex: 1 1 45%; /* 한 줄에 2개 */
+        flex: 1 1 45%;
     }
 
     button, .back-link {

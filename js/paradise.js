@@ -7,22 +7,23 @@ let accessToken = null;
 
 // 캐릭터 정보
 const characters = {
-    "아서": { id: "Arthur_s", fileName: "arthur.json" },
-    "샬럿": { id: "zZzzZzz", fileName: "charlotte.json" },
-    "위스테라이": { id: "Nightmare", fileName: "wiz.json" },
-    "딜런": { id: "DylanRossini", fileName: "dylan.json" },
-    "리키": { id: "RICKYBANG", fileName: "ricky.json" },
-    "윈터": { id: "Winter", fileName: "winter.json" },
-    "제이어드": { id: "DD_Jayard", fileName: "j.json" },
-    "루": { id: "LuBu3", fileName: "lu.json" },
-    "엘가": { id: "Elgar", fileName: "elgar.json" },
-    "할로우": { id: "H0110W", fileName: "hollow.json" },
-    "도로테아": { id: "Dorothy_Witch", fileName: "dorothy.json" },
-    "케일럽": { id: "Y0UNGBL00D", fileName: "cale.json" },
-    "멜리사": { id: "Melissa", fileName: "melissa.json" },
-    "카이퍼": { id: "Ebony", fileName: "kuiper.json" },
-    "타우리온": { id: "TauLeo", fileName: "tauleon.json" },
-    "요세프": { id: "Y0S3F", fileName: "yosef.json" },
+    "아서": { id: "Arthur_s", fileName: "arthur.json", enabled: true },
+    "샬럿": { id: "zZzzZzz", fileName: "charlotte.json", enabled: true },
+    "니나": { id: "NINA", fileName: "nina.json", enabled: false },
+    "위스테라이": { id: "Nightmare", fileName: "wiz.json", enabled: false },
+    "딜런": { id: "DylanRossini", fileName: "dylan.json", enabled: false },
+    "리키": { id: "RICKYBANG", fileName: "ricky.json", enabled: false },
+    "윈터": { id: "Winter", fileName: "winter.json", enabled: false },
+    "제이어드": { id: "DD_Jayard", fileName: "j.json", enabled: false },
+    "루": { id: "LuBu3", fileName: "lu.json", enabled: false },
+    "엘가": { id: "Elgar", fileName: "elgar.json", enabled: false },
+    "할로우": { id: "H0110W", fileName: "hollow.json", enabled: false },
+    "도로테아": { id: "Dorothy_Witch", fileName: "dorothy.json", enabled: false },
+    "케일럽": { id: "Y0UNGBL00D", fileName: "cale.json", enabled: false },
+    "멜리사": { id: "Melissa", fileName: "melissa.json", enabled: false },
+    "카이퍼": { id: "Ebony", fileName: "kuiper.json", enabled: false },
+    "타우리온": { id: "TauLeo", fileName: "tauleon.json", enabled: false },
+    "요세프": { id: "Y0S3F", fileName: "yosef.json", enabled: false },
 };
 
 // id → 한글 이름 매핑
@@ -162,17 +163,26 @@ async function initApp() {
     }
 }
 
-// 캐릭터 체크박스 생성
 function generateCharacterCheckboxes() {
     const container = document.getElementById("characterList");
-    Object.keys(characters).forEach(name => {
+    Object.entries(characters).forEach(([name, obj]) => {
         const label = document.createElement("label");
         const input = document.createElement("input");
         input.type = "checkbox";
         input.value = name;
+        input.disabled = !obj.enabled; // false면 체크 불가
         label.appendChild(input);
         label.appendChild(document.createTextNode(" " + name));
         container.appendChild(label);
+    });
+
+    // 체크박스 선택 제한 (최대 2개)
+    container.addEventListener("change", () => {
+        const checked = container.querySelectorAll("input:checked");
+        if (checked.length > 2) {
+            alert("최대 2개까지 선택 가능합니다.");
+            checked[checked.length - 1].checked = false; // 마지막 클릭한 거 해제
+        }
     });
 }
 

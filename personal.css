@@ -1,7 +1,7 @@
-/* 전체 페이지 스타일 */
+
 body {
     font-family: 'Noto Sans KR', sans-serif;
-    background: #f3f0ff; /* 연보라빛 배경 */
+    background: #f3f0ff;
     color: #3c2f5c;
     display: flex;
     flex-direction: column;
@@ -18,10 +18,10 @@ h1 {
     margin-bottom: 30px;
 }
 .notice {
-    margin-top: 5px;    /* 위쪽 여백 */
-    margin-bottom: 5px; /* 아래쪽 여백 */
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
-/* 입력 그룹 */
+
 .input-group {
     display: flex;
     flex-direction: column;
@@ -39,7 +39,7 @@ input[type="text"], input[type="file"] {
     font-size: 1em;
 }
 
-/* 버튼 그룹 */
+
 .button-group {
     display: flex;
     flex-wrap: wrap;
@@ -70,7 +70,7 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* 돌아가기 링크 */
+
 .back-link {
     display: inline-block;
     padding: 10px 20px;
@@ -79,7 +79,10 @@ button:disabled {
     color: #3c2f5c;
     text-decoration: none;
     font-weight: bold;
+    font-size: 1em;
+    text-align: center;
     transition: background 0.2s, transform 0.2s;
+    box-sizing: border-box;
 }
 
 .back-link:hover {
@@ -87,7 +90,7 @@ button:disabled {
     transform: scale(1.05);
 }
 
-/* 반응형 */
+
 @media (max-width: 768px) {
     input[type="text"], input[type="file"] {
         width: 90%;
