@@ -1,0 +1,41 @@
+{
+  "CLIENT_ID": "927829633052-da399enjcke7f7mreai6f19mgs5r9eu5.apps.googleusercontent.com",
+  "API_KEY": "AIzaSyAcjpck2SHEd64KMPANHx2lSqj1obTUTZ0",
+  "PASSWORD" : "바바",
+  "driveFiles": {
+    "arthur.json": "1CGX6DRbPkVfBxj2MnVgy-4Gvv5tuu3Pz",
+    "charlotte.json": "1f9YklzFqA-zJGOoTajWXCO8niinxvpHa",
+    "wiz.json": "",
+    "dylan.json": "",
+    "ricky.json": "",
+    "winter.json": "",
+    "j.json": "",
+    "lu.json": "",
+    "elgar.json": "1SFVRqXofZ_qZXAQPxd8WA9ipA3LlGsLe",
+    "hollow.json": "",
+    "dorothy.json": "",
+    "cale.json": "",
+    "melissa.json": "",
+    "kuiper.json": "1VDjwcDLKAx08pfBIGCzQFe14j_bEv5Yg",
+    "tauleon.json": "",
+    "yosef.json": "1z85qjOtN8rZTNHjyWHniXrzzr6SDUBmQ"
+  },
+  "driveFilesRE": {
+    "arthur_RE.json": "10pTN09f6kFsc3_kvOFGZrfBZ9fN1dti4",
+    "charlotte_RE.json": "",
+    "wiz_RE.json": "",
+    "dylan_RE.json": "",
+    "ricky_RE.json": "",
+    "winter_RE.json": "",
+    "j_RE.json": "",
+    "lu_RE.json": "",
+    "elgar_RE.json": "1iuJ6ncFeCLJo-tWNJlxaKyNN_8V5kyEH",
+    "hollow_RE.json": "",
+    "dorothy_RE.json": "",
+    "cale_RE.json": "",
+    "melissa_RE.json": "",
+    "kuiper_RE.json": "",
+    "tauleon_RE.json": "",
+    "yosef_RE.json": "10NhLi2mcqeAyiBK5xvXaOU2Bv7eK9Ud0"
+  }
+}

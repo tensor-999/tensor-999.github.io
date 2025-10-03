@@ -198,6 +198,8 @@ document.getElementById("authBtn").addEventListener("click", () => {
     tokenClient.requestAccessToken({ prompt: 'consent' });
 });
 
+const excludeMentions = ["@Limone", "@jackson", "@Kevin_Vance", "@Guinevere", "@NOTICE", "@STORY", "@Paradise"];
+
 document.getElementById("uploadBtn").addEventListener("click", async () => {
     const selected = Array.from(document.querySelectorAll("#characterList input:checked")).map(i => i.value);
     if (!selected.length) return alert("캐릭터를 선택하세요!");
@@ -209,16 +211,32 @@ document.getElementById("uploadBtn").addEventListener("click", async () => {
     const records = [["날짜","카테고리","작성자","내용"]];
     let category = 1;
     threads.forEach(thread => {
-        thread.sort((a,b) => new Date(a.published)-new Date(b.published)).forEach(msg => {
-            const textObj = cleanText(msg.contentMap?.ko || msg.content || "");
-            records.push([toKST(msg.published), category, idToName[msg.attributedTo?.split("/").pop()] || msg.attributedTo?.split("/").pop(), textObj.content]);
+        // 시간 순 정렬
+        thread.sort((a,b) => new Date(a.published) - new Date(b.published)).forEach(msg => {
+            const contentText = cleanText(msg.contentMap?.ko || msg.content || "");
+
+            // 여기서 excluded mention 체크
+            const startsWithExcluded = excludeMentions.some(mention => contentText.content.trim().startsWith(mention));
+            if (startsWithExcluded) return; // 제외
+
+            records.push([
+                toKST(msg.published),
+                category,
+                idToName[msg.attributedTo?.split("/").pop()] || msg.attributedTo?.split("/").pop(),
+                contentText.content
+            ]);
         });
         category++;
     });
 
     const response = await gapi.client.sheets.spreadsheets.create({ properties: { title: sheetName } });
     const spreadsheetId = response.result.spreadsheetId;
-    await gapi.client.sheets.spreadsheets.values.update({ spreadsheetId, range: "A1", valueInputOption: "RAW", resource: { values: records } });
+    await gapi.client.sheets.spreadsheets.values.update({
+        spreadsheetId,
+        range: "A1",
+        valueInputOption: "RAW",
+        resource: { values: records }
+    });
 
     navigator.clipboard.writeText(`https://docs.google.com/spreadsheets/d/${spreadsheetId}`);
     alert("시트 생성 완료! 링크가 클립보드에 복사되었습니다.");

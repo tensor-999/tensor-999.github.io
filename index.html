@@ -10,7 +10,7 @@
 <h1>역극백업</h1>
 <h3>마스토돈 역극을 백업할 수 있는 사이트입니다.</h3>
 <ul>
-	<h2>외부인 사용 가능</h2>
+	<h2>외부인 사용 가능(1인 백업)</h2>
 	<li><a href="./personal.html">개인 역극백업(1인)</a></li>
 	<h2>커뮤니티 전용(2인 백업)</h2>
 	<li><a href="./paradise.html">낙원존재론</a></li>
@@ -34,7 +34,7 @@
 		protectedLinks.forEach(link => {
 			link.addEventListener("click", (e) => {
 				e.preventDefault();
-				const userInput = prompt("비밀번호를 입력하세요: ");
+				const userInput = prompt("비밀번호를 입력하세요:\n(힌트 : 시간선 관리자(admin-B1350)의 이름, 2글자) ");
 				if (userInput === password) {
 					sessionStorage.setItem("authenticated", "true");
 					window.location.href = link.href;
