@@ -16,14 +16,14 @@ const characters = {
     "윈터": { id: "Winter", fileName: "winter.json", enabled: false },
     "제이어드": { id: "DD_Jayard", fileName: "j.json", enabled: false },
     "루": { id: "LuBu3", fileName: "lu.json", enabled: false },
-    "엘가": { id: "Elgar", fileName: "elgar.json", enabled: false },
+    "엘가": { id: "Elgar", fileName: "elgar.json", enabled: true },
     "할로우": { id: "H0110W", fileName: "hollow.json", enabled: false },
     "도로테아": { id: "Dorothy_Witch", fileName: "dorothy.json", enabled: false },
     "케일럽": { id: "Y0UNGBL00D", fileName: "cale.json", enabled: false },
-    "멜리사": { id: "Melissa", fileName: "melissa.json", enabled: false },
+    "멜리사": { id: "Melissa", fileName: "melissa.json", enabled: true },
     "카이퍼": { id: "Ebony", fileName: "kuiper.json", enabled: false },
     "타우리온": { id: "TauLeo", fileName: "tauleon.json", enabled: false },
-    "요세프": { id: "Y0S3F", fileName: "yosef.json", enabled: false },
+    "요세프": { id: "Y0S3F", fileName: "yosef.json", enabled: true },
 };
 
 // id → 한글 이름 매핑
