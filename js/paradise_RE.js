@@ -15,7 +15,7 @@ const characters = {
     "리키": { id: "RICKYBANG", fileName: "ricky_RE.json", enabled: false },
     "윈터": { id: "Winter", fileName: "winter_RE.json", enabled: false },
     "제이어드": { id: "DD_Jayard", fileName: "j_RE.json", enabled: false },
-    "루": { id: "LuBu3", fileName: "lu_RE.json", enabled: false },
+    "루": { id: "LuBu3", fileName: "lu_RE.json", enabled: true },
     "엘가": { id: "Elgar", fileName: "elgar_RE.json", enabled: true },
     "할로우": { id: "HOLLOW", fileName: "hollow_RE.json", enabled: false },
     "도로테아": { id: "Dorothy_Witch", fileName: "dorothy_RE.json", enabled: false },
