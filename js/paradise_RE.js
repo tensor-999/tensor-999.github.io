@@ -21,7 +21,7 @@ const characters = {
     "도로테아": { id: "Dorothy_Witch", fileName: "dorothy_RE.json", enabled: false },
     "케일럽": { id: "Y0UNGBL00D", fileName: "cale_RE.json", enabled: false },
     "멜리사": { id: "MelissaMaynard", fileName: "melissa_RE.json", enabled: true },
-    "카이퍼": { id: "Kuiper", fileName: "kuiper_RE.json", enabled: false },
+    "카이퍼": { id: "Kuiper", fileName: "kuiper_RE.json", enabled: true },
     "타우리온": { id: "TauLeo", fileName: "tauleon_RE.json", enabled: false },
     "요세프": { id: "Y0S3F", fileName: "yosef_RE.json", enabled: true },
 };
